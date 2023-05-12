@@ -4,6 +4,8 @@ from django.http import HttpResponse
 
 from app.forms import *
 
+from django.core.mail import send_mail
+
 def registration(request):
 
     ufo=UserForm()
@@ -26,6 +28,14 @@ def registration(request):
             NSPO=pfd.save(commit=False)
             NSPO.username=NSUO
             NSPO.save()
+
+
+            send_mail('Registration',
+                       "successfully registration is done",
+                       'junaidakhif19@gmail.com',
+                       [NSUO.email],
+                       fail_silently=False
+                       )
     
             return HttpResponse('Data is submitted successfully')
         else:
