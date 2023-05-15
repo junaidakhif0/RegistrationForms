@@ -79,4 +79,11 @@ def user_logout(request):
     logout(request)
     return HttpResponseRedirect(reverse('home'))
 
+@login_required
+def display_profile(request):
+    username=request.session.get('username')
+    UO=User.objects.get(username=username)
+    PO=Profile.objects.get(username=UO)
+    d={'UO':UO,'PO':PO}
+    return render(request,'display_profile.html',d)
             
