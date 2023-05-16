@@ -86,4 +86,23 @@ def display_profile(request):
     PO=Profile.objects.get(username=UO)
     d={'UO':UO,'PO':PO}
     return render(request,'display_profile.html',d)
-            
+
+
+def forgotpassword(request):
+    if request.method=='POST':
+        UN=request.POST['un']
+        PW=request.POST['pw']
+
+        LUO=User.objects.filter(username=UN)
+        if LUO:
+            UO=LUO[0]
+            UO.set_password(PW)
+            UO.save()
+            return HttpResponse('password reset is done')
+        
+        else:
+            return HttpResponse('username is not available in DataBase')
+    return render(request,'forgotpassword.html')
+
+
+                    
