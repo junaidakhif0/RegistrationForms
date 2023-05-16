@@ -33,5 +33,6 @@ urlpatterns = [
     path('display_profile/',display_profile,name='display_profile'),
 
     path('forgotpassword/',forgotpassword,name='forgotpassword'),
+    path('changepassword/',changepassword,name='changepassword')
     
 ]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

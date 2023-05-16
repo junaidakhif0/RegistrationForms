@@ -94,8 +94,10 @@ def forgotpassword(request):
         PW=request.POST['pw']
 
         LUO=User.objects.filter(username=UN)
-        if LUO:
+        if LUO:                                             #LIST OF USER OBJECTS
+            #print(LUO)
             UO=LUO[0]
+            #print(UO)
             UO.set_password(PW)
             UO.save()
             return HttpResponse('password reset is done')
@@ -103,6 +105,26 @@ def forgotpassword(request):
         else:
             return HttpResponse('username is not available in DataBase')
     return render(request,'forgotpassword.html')
+
+@login_required
+def changepassword(request):
+    if request.method=='POST':
+        PW=request.POST['PW']
+        username=request.session.get('username')
+        UO=User.objects.get(username=username)
+        UO.set_password(PW)
+        UO.save()
+
+        return HttpResponse('password changed sccessfully')
+    return render(request,'changepassword.html')
+        
+
+
+
+
+
+
+
 
 
                     
